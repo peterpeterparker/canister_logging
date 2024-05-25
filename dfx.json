@@ -1,0 +1,32 @@
+{
+  "canisters": {
+    "canister_logging_backend": {
+      "candid": "src/canister_logging_backend/canister_logging_backend.did",
+      "declarations": {
+        "node_compatibility": true
+      },
+      "package": "canister_logging_backend",
+      "type": "rust"
+    },
+    "canister_logging_frontend": {
+      "dependencies": ["canister_logging_backend"],
+      "source": ["src/canister_logging_frontend/dist"],
+      "type": "assets",
+      "workspace": "canister_logging_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1,
+  "networks": {
+    "local": {
+      "bind": "127.0.0.1:4943",
+      "type": "ephemeral"
+    }
+  }
+}
