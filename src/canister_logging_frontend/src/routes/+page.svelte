@@ -6,6 +6,7 @@
   import { canisterId } from 'declarations/canister_logging_backend';
   import { Ed25519KeyIdentity } from '@dfinity/identity';
   import {onMount} from "svelte";
+  import {agentCanisterLogs} from "$lib/agent.js";
 
   let greeting = "";
 
@@ -22,6 +23,15 @@
 
   const logs = async () => {
     const results = await canisterLogs({
+      canisterId,
+      identity
+    });
+
+    console.log("Logs ->", results);
+  }
+
+  const agentLogs = async () => {
+    const results = await agentCanisterLogs({
       canisterId,
       identity
     });
@@ -45,4 +55,5 @@
   <p><code>dfx canister update-settings --add-controller {identity?.getPrincipal().toText() ?? ""} canister_logging_backend</code></p>
 
   <button on:click={logs}>Fetch logs (see console)</button>
+  <button on:click={agentLogs}>Fetch logs with agent-js mgmt (see console)</button>
 </main>

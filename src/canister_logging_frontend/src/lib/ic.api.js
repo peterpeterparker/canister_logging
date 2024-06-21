@@ -1,6 +1,7 @@
 import { Principal } from "@dfinity/principal";
-import { Actor, HttpAgent } from "@dfinity/agent";
+import { Actor } from "@dfinity/agent";
 import { idlFactory as idlFactorIC } from "../../../declarations/ic/ic.factory.did.js";
+import {getLocalAgent} from "$lib/agent.js";
 
 export const canisterLogs = async ({ canisterId, identity }) => {
   const { fetch_canister_logs } = await getICActor({ identity });
@@ -54,15 +55,4 @@ const createActor = async ({
     canisterId,
     ...config,
   });
-};
-
-const getLocalAgent = async (params) => {
-  const host = "http://127.0.0.1:4943";
-
-  const agent = new HttpAgent({ ...params, host });
-
-  // Fetch root key for certificate validation during development
-  await agent.fetchRootKey();
-
-  return agent;
 };
